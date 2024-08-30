@@ -10,7 +10,7 @@ public interface ProfileRepository extends JpaRepository<Profile, Integer> {
 
 
     @Query(value = "insert into tbl_profile (gmail_id, login_gmail) values (:gmail_id, :login_gmail)", nativeQuery = true)
-    Profile insertProfile(@Param("gmail_id") Integer gmailId, @Param("login_gmail") Boolean loginGmail);
+    void insertProfile(@Param("gmail_id") Integer gmailId, @Param("login_gmail") Boolean loginGmail);
 
 
 }

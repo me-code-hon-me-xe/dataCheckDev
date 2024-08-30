@@ -32,21 +32,22 @@ public class ProfileController {
     }
 
     @PostMapping("/createProfile")
-    public ResponseEntity<Profile> createProfile(@RequestBody Profile profile){
+    public void createProfile(@RequestBody Profile profile){
 
         // find gmail with use status = false (0)
         Gmail unusedGmail = gmailService.findUnusedGmail();
 
-        // Update gmail with use status = true (1)
-        gmailService.updateUsedStatusById(unusedGmail.getId());
+        System.out.println(unusedGmail.getUsername());
 
         // Add to profile with gmail use_status = false (0)
-        Profile newProfile = profileService.addProfile(unusedGmail.getId(), profile);
+        profileService.addProfile(unusedGmail.getId(), profile);
+
+        // Update gmail with use status = true (1)
+        gmailService.updateUsedStatusById(unusedGmail.getId());
 
 
         Gmail updatedGmail = gmailService.findById(unusedGmail.getId());
 
 
-        return new ResponseEntity<>(newProfile, HttpStatus.CREATED);
     }
 }

@@ -19,8 +19,8 @@ public class ProfileServiceImpl implements ProfileService{
     }
 
     @Override
-    public Profile addProfile(int id, Profile profile) {
-        return profileRepository.insertProfile(id, profile.getLoginGmail());
+    public void addProfile(int id, Profile profile) {
+        profileRepository.insertProfile(id, profile.getLoginGmail());
     }
 
 

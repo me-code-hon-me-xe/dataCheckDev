@@ -7,5 +7,5 @@ public interface ProfileService {
 
     Profile createProfile(Profile profile);
 
-    Profile addProfile(int id, Profile profile);
+    void addProfile(int id, Profile profile);
 }
