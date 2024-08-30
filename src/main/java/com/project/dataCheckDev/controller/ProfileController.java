@@ -31,8 +31,10 @@ public class ProfileController {
         return new ResponseEntity<>(gmail, HttpStatus.OK);
     }
 
-    @PostMapping("/createProfile")
-    public void createProfile(@RequestBody Profile profile){
+
+
+    @PostMapping(value = "/createProfile", consumes = "application/x-www-form-urlencoded")
+    public Integer createProfile(Profile profile){
 
         // find gmail with use status = false (0)
         Gmail unusedGmail = gmailService.findUnusedGmail();
@@ -45,9 +47,7 @@ public class ProfileController {
         // Update gmail with use status = true (1)
         gmailService.updateUsedStatusById(unusedGmail.getId());
 
-
-        Gmail updatedGmail = gmailService.findById(unusedGmail.getId());
-
+        return 1;
 
     }
 }
