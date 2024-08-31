@@ -5,7 +5,6 @@ import com.project.dataCheckDev.entity.Profile;
 import com.project.dataCheckDev.repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 
 
@@ -20,12 +19,12 @@ public class ProfileServiceImpl implements ProfileService {
     @Autowired
     ProfileRepository profileRepository;
 
-
     public int count = 0;
     @Override
     public void createProfile(Profile profile){
-        System.out.println(count++);
+
         Gmail unusedGmail = this.getUnusedEmail();
+        System.out.println("Number request: " + count++ + " -> Add gmail: " + unusedGmail.getUsername());
         gmailService.updateGmail(unusedGmail);
         this.addProfile(unusedGmail.getId(), profile);
     }
