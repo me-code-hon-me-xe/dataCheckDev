@@ -9,9 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @RequestMapping("api")
 public class ProfileController {
+
+    public Integer Thread = 0;
 
     @Autowired
     private GmailService gmailService;
@@ -19,35 +22,20 @@ public class ProfileController {
     private ProfileService profileService;
 
     @PostMapping("/createGmail")
-    public ResponseEntity<Gmail> createGmail(@RequestBody Gmail gmail){
+    public ResponseEntity<Gmail> createGmail(@RequestBody Gmail gmail) {
         Gmail savedGmail = gmailService.createGmail(gmail);
         return new ResponseEntity<>(savedGmail, HttpStatus.CREATED);
     }
 
     @GetMapping("/gmails/{id}")
-    public ResponseEntity<Gmail> getGmailById(@PathVariable("id") Integer gmailId){
+    public ResponseEntity<Gmail> getGmailById(@PathVariable("id") Integer gmailId) {
         Gmail gmail = gmailService.findById(gmailId);
         System.out.println(gmail.getUsername());
         return new ResponseEntity<>(gmail, HttpStatus.OK);
     }
 
-
-
-    @PostMapping(value = "/createProfile", consumes = "application/x-www-form-urlencoded")
-    public Integer createProfile(Profile profile){
-
-        // find gmail with use status = false (0)
-        Gmail unusedGmail = gmailService.findUnusedGmail();
-
-        System.out.println(unusedGmail.getUsername());
-
-        // Add to profile with gmail use_status = false (0)
-        profileService.addProfile(unusedGmail.getId(), profile);
-
-        // Update gmail with use status = true (1)
-        gmailService.updateUsedStatusById(unusedGmail.getId());
-
-        return 1;
-
+    @PostMapping(value = "/createProfile")
+    public synchronized void createProfile(Profile profile) {
+        profileService.createProfile(profile);
     }
 }

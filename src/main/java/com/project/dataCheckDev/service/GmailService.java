@@ -12,5 +12,6 @@ public interface GmailService {
     List<Gmail> getAllGmail();
     Gmail findUnusedGmail();
 
+
     void updateUsedStatusById(int id);
 }

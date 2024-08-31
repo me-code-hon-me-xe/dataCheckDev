@@ -2,7 +2,9 @@ package com.project.dataCheckDev.service;
 
 import com.project.dataCheckDev.entity.Gmail;
 import com.project.dataCheckDev.repository.GmailRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +22,7 @@ public class GmailServiceImpl implements GmailService{
     }
 
     @Override
+    @Transactional
     public Gmail findById(Integer id) {
         return gmailRepository.findById(id).orElse(null);
     }
@@ -35,7 +38,7 @@ public class GmailServiceImpl implements GmailService{
         exitingGmail.setId(gmail.getId());
         exitingGmail.setUsername(gmail.getUsername());
         exitingGmail.setPassword(gmail.getPassword());
-        exitingGmail.setUseStatus(gmail.getUseStatus());
+        exitingGmail.setUseStatus(true);
         exitingGmail.setMailRecovery(gmail.getMailRecovery());
         exitingGmail.setCreatedBy(gmail.getCreatedBy());
         exitingGmail.setCreatedDate(gmail.getCreatedDate());
