@@ -9,5 +9,4 @@ public class DataCheckDevApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DataCheckDevApplication.class, args);
 	}
-// hello world
 }
